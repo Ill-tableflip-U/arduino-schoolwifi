@@ -34,13 +34,14 @@ void connectToEnterpriseWiFi() {
   Serial.println(WiFi.localIP());
 }
 
-void sendHTTPRequest() {
+void sendHTTPRequest(const char* url) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
 
-    Serial.println("Sending HTTP GET request to http://tableflipped.xyz ...");
+    Serial.print("Sending HTTP GET request to: ");
+    Serial.println(url);
 
-    http.begin("https://tableflipped.xyz"); // HTTP
+    http.begin(url);
     int httpCode = http.GET();
 
     if (httpCode > 0) {
@@ -58,14 +59,15 @@ void sendHTTPRequest() {
   }
 }
 
+
 void setup() {
   Serial.begin(115200);
   delay(1000);
 
   connectToEnterpriseWiFi();
-  sendHTTPRequest();  // Call the function after connection
+  sendHTTPRequest("https://tableflipped.xyz");
 }
 
 void loop() {
-  // Do nothing or implement further logic
+  
 }
